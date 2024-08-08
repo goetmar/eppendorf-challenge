@@ -1,23 +1,47 @@
-import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useState } from "react";
+import { FormField, FormFieldState } from "../types";
+import { FormFieldInput } from "./FormFieldInput";
 
-type FormFieldState = {
-  value: string;
-  error: boolean;
-  errorMessage: string;
-};
+const formFields: FormField[] = [
+  {
+    id: "name",
+    label: "Name",
+    required: true,
+    type: "text",
+  },
+  {
+    id: "email",
+    label: "Email",
+    required: true,
+    type: "email",
+  },
+  {
+    id: "password",
+    label: "Password",
+    required: true,
+    type: "password",
+  },
+];
 
-const defaultFormFieldState: FormFieldState = {
-  value: "",
-  error: false,
-  errorMessage: "",
-};
+function createDefaultFormState(
+  fields: string[]
+): Record<string, FormFieldState> {
+  const defaultFormFieldState: FormFieldState = {
+    value: "",
+    error: false,
+    errorMessage: "",
+  };
+  let defaultFormState: Record<string, FormFieldState> = {};
 
-const defaultFormState: Record<string, FormFieldState> = {
-  name: defaultFormFieldState,
-  email: defaultFormFieldState,
-  password: defaultFormFieldState,
-};
+  fields.forEach((field) => {
+    defaultFormState[field] = defaultFormFieldState;
+  });
+  return defaultFormState;
+}
+const defaultFormState: Record<string, FormFieldState> = createDefaultFormState(
+  formFields.map((field) => field.id)
+);
 
 export const RegistrationForm = () => {
   const [formValues, setFormValues] = useState(defaultFormState);
@@ -87,48 +111,17 @@ export const RegistrationForm = () => {
               Registration Form
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="name"
-              label="Name"
-              variant="outlined"
-              type="text"
-              sx={{ width: "100%" }}
-              value={formValues.name.value}
-              onChange={handleChange}
-              error={formValues.name.error}
-              helperText={formValues.name.errorMessage}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="email"
-              label="Email"
-              variant="outlined"
-              type="email"
-              sx={{ width: "100%" }}
-              value={formValues.email.value}
-              onChange={handleChange}
-              error={formValues.email.error}
-              helperText={formValues.email.errorMessage}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="password"
-              label="Password"
-              variant="outlined"
-              type="password"
-              sx={{ width: "100%" }}
-              value={formValues.password.value}
-              onChange={handleChange}
-              error={formValues.password.error}
-              helperText={formValues.password.errorMessage}
-            />
-          </Grid>
+          {formFields.map((field) => (
+            <Grid item xs={12} key={field.id}>
+              <FormFieldInput
+                {...{
+                  ...field,
+                  ...formValues[field.id],
+                  handleChange,
+                }}
+              />
+            </Grid>
+          ))}
           <Grid item xs={6}>
             <Button
               variant="outlined"
