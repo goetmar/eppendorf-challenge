@@ -1,8 +1,14 @@
+export type Validation = {
+  isValid: (value: string) => boolean;
+  errorMessage: string;
+};
+
 export type FormField = {
   id: string;
   label: string;
   required: boolean;
   type: string;
+  validations: Validation[];
 };
 
 export type FormFieldState = {

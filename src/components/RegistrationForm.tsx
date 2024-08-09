@@ -2,6 +2,14 @@ import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { FormField, FormFieldState } from "../types";
 import { FormFieldInput } from "./FormFieldInput";
+import {
+  hasMinEightChars,
+  hasMinTwoChars,
+  hasNumber,
+  hasSpecialCharacter,
+  hasUppercaseLetter,
+  isValidEmail,
+} from "../utils/validation";
 
 const formFields: FormField[] = [
   {
@@ -9,18 +17,48 @@ const formFields: FormField[] = [
     label: "Name",
     required: true,
     type: "text",
+    validations: [
+      {
+        isValid: hasMinTwoChars,
+        errorMessage: "Name must have at least two characters",
+      },
+    ],
   },
   {
     id: "email",
     label: "Email",
     required: true,
     type: "email",
+    validations: [
+      {
+        isValid: isValidEmail,
+        errorMessage: "Email must be valid",
+      },
+    ],
   },
   {
     id: "password",
     label: "Password",
     required: true,
     type: "password",
+    validations: [
+      {
+        isValid: hasMinEightChars,
+        errorMessage: "Password must have at least eight characters",
+      },
+      {
+        isValid: hasUppercaseLetter,
+        errorMessage: "Password must be have at least one uppercase letter",
+      },
+      {
+        isValid: hasSpecialCharacter,
+        errorMessage: "Password must be have at least one special character",
+      },
+      {
+        isValid: hasNumber,
+        errorMessage: "Password must be have at least one number",
+      },
+    ],
   },
 ];
 
@@ -57,24 +95,37 @@ export const RegistrationForm = () => {
     });
   };
 
+  const resetFormValues = () => {
+    setFormValues(defaultFormState);
+  };
+
   const validateFields = (): boolean => {
     let newFormValues = { ...formValues };
     let isValid = true;
 
-    for (let field of Object.keys(formValues)) {
-      const currentValue = formValues[field].value;
+    for (let field of formFields) {
+      const currentValue = formValues[field.id].value;
       let error = false;
       let errorMessage = "";
 
-      if (!currentValue) {
-        errorMessage = "Field must not be empty";
+      if (field.required && !currentValue) {
+        errorMessage = `${field.label} must not be empty`;
+      } else {
+        for (const validation of field.validations) {
+          if (!validation.isValid(currentValue)) {
+            errorMessage = validation.errorMessage;
+            break;
+          }
+        }
+      }
+      if (errorMessage) {
         error = true;
         isValid = false;
       }
       newFormValues = {
         ...newFormValues,
-        [field]: {
-          ...newFormValues[field],
+        [field.id]: {
+          ...newFormValues[field.id],
           error: error,
           errorMessage: errorMessage,
         },
@@ -82,10 +133,6 @@ export const RegistrationForm = () => {
     }
     setFormValues(newFormValues);
     return isValid;
-  };
-
-  const resetFormValues = () => {
-    setFormValues(defaultFormState);
   };
 
   const handleSubmit = (event: React.SyntheticEvent) => {
