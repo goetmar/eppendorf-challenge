@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { FormField, FormFieldState } from "../types";
-import { FormFieldInput } from "./FormFieldInput";
+import { FormFieldInput } from "../atoms/FormFieldInput";
 import {
+  hasAtSymbol,
   hasMinEightChars,
   hasMinTwoChars,
   hasNumber,
@@ -39,6 +40,10 @@ const formFields: FormField[] = [
     type: "email",
     validations: [
       {
+        isValid: hasAtSymbol,
+        errorMessage: "Email must have an @ Symbol",
+      },
+      {
         isValid: isValidEmail,
         errorMessage: "Email must be valid",
       },
@@ -56,15 +61,15 @@ const formFields: FormField[] = [
       },
       {
         isValid: hasUppercaseLetter,
-        errorMessage: "Password must be have at least one uppercase letter",
+        errorMessage: "Password must have at least one uppercase letter",
       },
       {
         isValid: hasSpecialCharacter,
-        errorMessage: "Password must be have at least one special character",
+        errorMessage: "Password must have at least one special character",
       },
       {
         isValid: hasNumber,
-        errorMessage: "Password must be have at least one number",
+        errorMessage: "Password must have at least one number",
       },
     ],
   },

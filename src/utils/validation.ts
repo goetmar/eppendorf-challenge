@@ -11,6 +11,7 @@ function composePatternValidation(regExp: RegExp) {
 export const isValidEmail = composePatternValidation(
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 );
+export const hasAtSymbol = composePatternValidation(/^(?=.*@)/);
 export const hasUppercaseLetter = composePatternValidation(/^(?=.*[A-Z])/);
 export const hasSpecialCharacter = composePatternValidation(/^(?=.*\W)/);
 export const hasNumber = composePatternValidation(/^(?=.*\d)/);
