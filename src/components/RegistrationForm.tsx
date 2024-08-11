@@ -1,4 +1,12 @@
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Grid,
+  Paper,
+  Snackbar,
+  SnackbarCloseReason,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { FormField, FormFieldState } from "../types";
 import { FormFieldInput } from "./FormFieldInput";
@@ -83,6 +91,7 @@ const defaultFormState: Record<string, FormFieldState> = createDefaultFormState(
 
 export const RegistrationForm = () => {
   const [formValues, setFormValues] = useState(defaultFormState);
+  const [openAlert, setOpenAlert] = useState(true);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
@@ -140,7 +149,18 @@ export const RegistrationForm = () => {
     const isValid = validateFields();
     if (isValid) {
       resetFormValues();
+      setOpenAlert(true);
     }
+  };
+
+  const handleCloseAlert = (
+    _event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenAlert(false);
   };
 
   return (
@@ -185,6 +205,21 @@ export const RegistrationForm = () => {
           </Grid>
         </Grid>
       </form>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Your submit was successful
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 };
