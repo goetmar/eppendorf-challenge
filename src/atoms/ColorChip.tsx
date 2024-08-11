@@ -6,7 +6,7 @@ export const ColorChip = (props: { color: string; label: string }) => {
       sx={{
         textAlign: "center",
         backgroundColor: props.color,
-        minWidth: 85,
+        minWidth: 90,
         color: getContrastRatio(props.color, "#FFF") > 3 ? "#FFF" : "#111",
       }}
       label={props.label}
