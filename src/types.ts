@@ -1,3 +1,54 @@
+import { MouseEvent } from "react";
+
+// Device Data Types
+export type Device = {
+  id: number;
+  location: string;
+  type: DeviceType;
+  deviceHealth: DeviceHealthEnum;
+  lastUsed: Date;
+  price: number;
+  color: ColorValueHex;
+};
+
+export type DeviceType =
+  | "freezer"
+  | "cycler"
+  | "shaker"
+  | "pipette"
+  | "centrifuge";
+
+export enum DeviceHealthEnum {
+  "broken",
+  "bad",
+  "mediocre",
+  "ok",
+  "good",
+}
+
+export type DeviceHealth = keyof typeof DeviceHealthEnum;
+
+export type ColorValueHex = `#${string}`;
+
+// Sorted Table Types
+export type Order = "asc" | "desc";
+
+export type HeadCell = {
+  id: keyof Device;
+  label: string;
+  numeric: boolean;
+  percentageWidth: number;
+};
+
+export type SortedTableProps = {
+  onRequestSort: (event: MouseEvent<unknown>, property: keyof Device) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
+  headCells: HeadCell[];
+};
+
+// Registration Form Types
 export type Validation = {
   isValid: (value: string) => boolean;
   errorMessage: string;

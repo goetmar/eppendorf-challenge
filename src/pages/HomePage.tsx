@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { RegistrationForm } from "../components/RegistrationForm";
+import { SortedTable } from "../components/SortedTable";
 
 export const HomePage = () => {
   return (
@@ -9,6 +10,7 @@ export const HomePage = () => {
           Eppendorf Challenge
         </Typography>
         <RegistrationForm />
+        <SortedTable />
       </Stack>
     </Box>
   );
