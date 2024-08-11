@@ -1,5 +1,4 @@
 import {
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -7,9 +6,7 @@ import {
   TableContainer,
   TablePagination,
   TableRow,
-  Tooltip,
 } from "@mui/material";
-import { FilterList } from "@mui/icons-material";
 import {
   ColorValueHex,
   Device,
@@ -124,16 +121,10 @@ export const SortedTable = () => {
 
   return (
     <Paper sx={{ width: "100%", maxWidth: 1000 }}>
-      <SortedTableToolbar>
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterList />
-          </IconButton>
-        </Tooltip>
-      </SortedTableToolbar>
+      <SortedTableToolbar />
       <TableContainer>
         <Table
-          sx={{ minWidth: 800, tableLayout: "fixed" }}
+          sx={{ minWidth: 850, tableLayout: "fixed" }}
           aria-labelledby="sortedTableTitle"
           size="small"
         >
