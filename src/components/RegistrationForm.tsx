@@ -70,16 +70,16 @@ const formFields: FormField[] = [
   },
 ];
 
+const defaultFormFieldState: FormFieldState = {
+  value: "",
+  error: false,
+  errorMessage: "",
+};
+
 function createDefaultFormState(
   fields: string[]
 ): Record<string, FormFieldState> {
-  const defaultFormFieldState: FormFieldState = {
-    value: "",
-    error: false,
-    errorMessage: "",
-  };
   let defaultFormState: Record<string, FormFieldState> = {};
-
   fields.forEach((field) => {
     defaultFormState[field] = defaultFormFieldState;
   });
@@ -114,8 +114,7 @@ export const RegistrationForm = () => {
 
     for (let field of formFields) {
       const currentValue = formValues[field.id].value;
-      let error = false;
-      let errorMessage = "";
+      let { error, errorMessage } = defaultFormFieldState;
 
       if (field.required && !currentValue) {
         errorMessage = `${field.label} must not be empty`;
@@ -127,7 +126,7 @@ export const RegistrationForm = () => {
           }
         }
       }
-      if (errorMessage) {
+      if (errorMessage !== defaultFormFieldState.errorMessage) {
         error = true;
         isValid = false;
       }

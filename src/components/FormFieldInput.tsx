@@ -64,7 +64,11 @@ export const FormFieldInput = (props: FormFieldInputProps) => {
             }
             label="Password"
           />
-          <FormHelperText>{props.error && props.errorMessage}</FormHelperText>
+          {props.errorMessage && (
+            <FormHelperText id={`${props.id}-helper-text`}>
+              {props.errorMessage}
+            </FormHelperText>
+          )}
         </FormControl>
       )}
     </>
