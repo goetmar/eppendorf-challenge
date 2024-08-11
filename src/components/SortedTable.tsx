@@ -158,7 +158,12 @@ export const SortedTable = () => {
                   <TableCell align="right">
                     {row.lastUsed.toLocaleDateString()}
                   </TableCell>
-                  <TableCell align="right">{row.price + " €"}</TableCell>
+                  <TableCell align="right">
+                    {new Intl.NumberFormat("de-DE", {
+                      style: "currency",
+                      currency: "EUR",
+                    }).format(row.price)}
+                  </TableCell>
                   <TableCell>
                     <ColorChip color={row.color} label={row.color} />
                   </TableCell>
