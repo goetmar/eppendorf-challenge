@@ -91,7 +91,7 @@ const defaultFormState: Record<string, FormFieldState> = createDefaultFormState(
 
 export const RegistrationForm = () => {
   const [formValues, setFormValues] = useState(defaultFormState);
-  const [openAlert, setOpenAlert] = useState(true);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
