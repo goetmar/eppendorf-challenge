@@ -6,6 +6,7 @@ import {
   TableContainer,
   TablePagination,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import {
   ColorValueHex,
@@ -139,15 +140,17 @@ export const SortedTable = () => {
             {visibleRows.map((row) => {
               return (
                 <TableRow hover tabIndex={-1} key={row.id}>
-                  <TableCell
-                    style={{
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {row.location}
-                  </TableCell>
+                  <Tooltip title={row.location} enterDelay={500} arrow>
+                    <TableCell
+                      style={{
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {row.location}
+                    </TableCell>
+                  </Tooltip>
                   <TableCell>{row.type}</TableCell>
                   <TableCell>
                     <ColorChip
