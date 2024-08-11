@@ -148,7 +148,15 @@ export const SortedTable = () => {
             {visibleRows.map((row) => {
               return (
                 <TableRow hover tabIndex={-1} key={row.id}>
-                  <TableCell>{row.location}</TableCell>
+                  <TableCell
+                    style={{
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {row.location}
+                  </TableCell>
                   <TableCell>{row.type}</TableCell>
                   <TableCell>
                     <ColorChip
