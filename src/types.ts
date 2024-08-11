@@ -30,6 +30,14 @@ export type DeviceHealth = keyof typeof DeviceHealthEnum;
 
 export type ColorValueHex = `#${string}`;
 
+export enum StatusColor {
+  "#f44336",
+  "#ffa726",
+  "#FAD800",
+  "#81c784",
+  "#388e3c",
+}
+
 // Sorted Table Types
 export type Order = "asc" | "desc";
 

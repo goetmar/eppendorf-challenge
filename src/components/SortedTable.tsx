@@ -18,11 +18,14 @@ import {
   DeviceType,
   HeadCell,
   Order,
+  StatusColor,
 } from "../types";
 import deviceDataJson from "../data/data.json";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { SortedTableToolbar } from "../atoms/SortedTableToolbar";
 import { SortedTableHead } from "../atoms/SortedTableHead";
+import { getComparator } from "../utils/comparator";
+import { ColorChip } from "../atoms/ColorChip";
 
 type DeviceData = (typeof deviceDataJson)[0];
 
@@ -43,28 +46,6 @@ const deviceData: Device[] = deviceDataJson.map((deviceData) =>
 );
 
 const rows = deviceData;
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string | Date },
-  b: { [key in Key]: number | string | Date }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
 
 const headCells: HeadCell[] = [
   {
@@ -169,12 +150,19 @@ export const SortedTable = () => {
                 <TableRow hover tabIndex={-1} key={row.id}>
                   <TableCell>{row.location}</TableCell>
                   <TableCell>{row.type}</TableCell>
-                  <TableCell>{DeviceHealthEnum[row.deviceHealth]}</TableCell>
+                  <TableCell>
+                    <ColorChip
+                      color={StatusColor[row.deviceHealth]}
+                      label={DeviceHealthEnum[row.deviceHealth]}
+                    />
+                  </TableCell>
                   <TableCell align="right">
                     {row.lastUsed.toLocaleDateString()}
                   </TableCell>
                   <TableCell align="right">{row.price + " €"}</TableCell>
-                  <TableCell>{row.color}</TableCell>
+                  <TableCell>
+                    <ColorChip color={row.color} label={row.color} />
+                  </TableCell>
                 </TableRow>
               );
             })}
