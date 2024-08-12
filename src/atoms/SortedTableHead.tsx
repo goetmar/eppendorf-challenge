@@ -1,5 +1,6 @@
 import { TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
-import { SortedTableHeadProps, Device } from "../types/types";
+import { Device } from "../types/types";
+import { SortedTableHeadProps } from "../types/props";
 import { MouseEvent } from "react";
 
 export const SortedTableHead = (props: SortedTableHeadProps) => {

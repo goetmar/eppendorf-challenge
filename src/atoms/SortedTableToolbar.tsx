@@ -1,5 +1,5 @@
 import { Toolbar, Typography } from "@mui/material";
-import { SortedTableToolbarProps } from "../types/types";
+import { SortedTableToolbarProps } from "../types/props";
 
 export const SortedTableToolbar = (props: SortedTableToolbarProps) => {
   return (

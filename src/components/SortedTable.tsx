@@ -8,19 +8,13 @@ import {
   TableRow,
   Tooltip,
 } from "@mui/material";
-import {
-  Device,
-  DeviceHealthEnum,
-  HeadCell,
-  Order,
-  SortedTableProps,
-  StatusColor,
-} from "../types/types";
+import { Device, DeviceHealthEnum, Order, StatusColor } from "../types/types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { SortedTableToolbar } from "../atoms/SortedTableToolbar";
 import { SortedTableHead } from "../atoms/SortedTableHead";
 import { getComparator } from "../utils/comparator";
 import { ColorChip } from "../atoms/ColorChip";
+import { SortedTableProps } from "../types/props";
 
 export const SortedTable = (props: SortedTableProps) => {
   const [order, setOrder] = useState<Order>("asc");
