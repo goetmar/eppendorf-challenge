@@ -1,7 +1,7 @@
 import { Toolbar, Typography } from "@mui/material";
-import { ReactNode } from "react";
+import { SortedTableToolbarProps } from "../types/types";
 
-export const SortedTableToolbar = (props: { children?: ReactNode }) => {
+export const SortedTableToolbar = (props: SortedTableToolbarProps) => {
   return (
     <Toolbar
       sx={{

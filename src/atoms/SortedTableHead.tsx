@@ -1,8 +1,8 @@
 import { TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
-import { SortedTableProps, Device } from "../types";
+import { SortedTableHeadProps, Device } from "../types/types";
 import { MouseEvent } from "react";
 
-export const SortedTableHead = (props: SortedTableProps) => {
+export const SortedTableHead = (props: SortedTableHeadProps) => {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler =
     (property: keyof Device) => (event: MouseEvent<unknown>) => {

@@ -1,4 +1,4 @@
-import { FormField, FormValue } from "../types";
+import { FormField, FormValue } from "../types/types";
 import {
   hasAtSymbol,
   hasMinEightChars,

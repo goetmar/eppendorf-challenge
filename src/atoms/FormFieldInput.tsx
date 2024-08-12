@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { FormFieldInputProps } from "../types";
+import { FormFieldInputProps } from "../types/types";
 
 export const FormFieldInput = (props: FormFieldInputProps) => {
   const [showPassword, setShowPassword] = useState(false);

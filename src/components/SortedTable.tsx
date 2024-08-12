@@ -13,18 +13,16 @@ import {
   DeviceHealthEnum,
   HeadCell,
   Order,
+  SortedTableProps,
   StatusColor,
-} from "../types";
+} from "../types/types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { SortedTableToolbar } from "../atoms/SortedTableToolbar";
 import { SortedTableHead } from "../atoms/SortedTableHead";
 import { getComparator } from "../utils/comparator";
 import { ColorChip } from "../atoms/ColorChip";
 
-export const SortedTable = (props: {
-  rows: Device[];
-  headCells: HeadCell[];
-}) => {
+export const SortedTable = (props: SortedTableProps) => {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Device>("price");
   const [page, setPage] = useState(0);

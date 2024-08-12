@@ -8,11 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { FormField } from "../types";
+import { RegistrationFormProps } from "../types/types";
 import { FormFieldInput } from "../atoms/FormFieldInput";
 import useForm from "../hooks/useForm";
 
-export const RegistrationForm = (props: { formFields: FormField[] }) => {
+export const RegistrationForm = (props: RegistrationFormProps) => {
   const { formValues, handleChange, resetFormValues, validateFields } = useForm(
     props.formFields
   );

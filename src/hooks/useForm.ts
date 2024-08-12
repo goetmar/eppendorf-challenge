@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormField, FormValue } from "../types";
+import { FormField, FormValue } from "../types/types";
 
 function createDefaultFormState(formFields: FormField[]) {
   let defaultFormState: Record<string, FormValue> = {};

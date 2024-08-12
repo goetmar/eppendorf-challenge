@@ -5,7 +5,7 @@ import {
   DeviceHealthEnum,
   DeviceType,
   HeadCell,
-} from "../types";
+} from "../types/types";
 import deviceDataJson from "../data/data.json";
 
 type DeviceData = (typeof deviceDataJson)[0];

@@ -1,5 +1,3 @@
-import { MouseEvent } from "react";
-
 // Device Data Types
 export type Device = {
   id: number;
@@ -48,14 +46,6 @@ export type HeadCell = {
   percentageWidth: number;
 };
 
-export type SortedTableProps = {
-  onRequestSort: (event: MouseEvent<unknown>, property: keyof Device) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-  headCells: HeadCell[];
-};
-
 // Registration Form Types
 export type Validation = {
   isValid: (value: string) => boolean;
@@ -76,8 +66,3 @@ export type FormField = {
   defaultValue: FormValue;
   validations: Validation[];
 };
-
-export type FormFieldInputProps = Omit<FormField, "defaultValue"> &
-  FormValue & {
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  };

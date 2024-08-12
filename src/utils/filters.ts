@@ -1,4 +1,4 @@
-import { Device } from "../types";
+import { Device } from "../types/types";
 
 // TODO potentially use these to implement filters for the data table later on
 function composeExactMatchFilter(key: keyof Device) {
