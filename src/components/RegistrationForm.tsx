@@ -8,86 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { FormField, FormValue } from "../types";
+import { FormField } from "../types";
 import { FormFieldInput } from "../atoms/FormFieldInput";
-import {
-  hasAtSymbol,
-  hasMinEightChars,
-  hasMinTwoChars,
-  hasNumber,
-  hasSpecialCharacter,
-  hasUppercaseLetter,
-  isValidEmail,
-} from "../utils/validation";
 import useForm from "../hooks/useForm";
 
-const defaultFormValue: FormValue = {
-  value: "",
-  error: false,
-  errorMessage: "",
-};
-
-const formFields: FormField[] = [
-  {
-    id: "name",
-    label: "Name",
-    required: true,
-    type: "text",
-    defaultValue: defaultFormValue,
-    validations: [
-      {
-        isValid: hasMinTwoChars,
-        errorMessage: "Name must have at least two characters",
-      },
-    ],
-  },
-  {
-    id: "email",
-    label: "Email",
-    required: true,
-    type: "email",
-    defaultValue: defaultFormValue,
-    validations: [
-      {
-        isValid: hasAtSymbol,
-        errorMessage: "Email must have an @ Symbol",
-      },
-      {
-        isValid: isValidEmail,
-        errorMessage: "Email must be valid",
-      },
-    ],
-  },
-  {
-    id: "password",
-    label: "Password",
-    required: true,
-    type: "password",
-    defaultValue: defaultFormValue,
-    validations: [
-      {
-        isValid: hasMinEightChars,
-        errorMessage: "Password must have at least eight characters",
-      },
-      {
-        isValid: hasUppercaseLetter,
-        errorMessage: "Password must have at least one uppercase letter",
-      },
-      {
-        isValid: hasSpecialCharacter,
-        errorMessage: "Password must have at least one special character",
-      },
-      {
-        isValid: hasNumber,
-        errorMessage: "Password must have at least one number",
-      },
-    ],
-  },
-];
-
-export const RegistrationForm = () => {
-  const { formValues, handleChange, resetFormValues, validateFields } =
-    useForm(formFields);
+export const RegistrationForm = (props: { formFields: FormField[] }) => {
+  const { formValues, handleChange, resetFormValues, validateFields } = useForm(
+    props.formFields
+  );
 
   const [openAlert, setOpenAlert] = useState(false);
 
@@ -125,7 +53,7 @@ export const RegistrationForm = () => {
               Registration Form
             </Typography>
           </Grid>
-          {formFields.map((field) => (
+          {props.formFields.map((field) => (
             <Grid item xs={12} key={field.id}>
               <FormFieldInput
                 {...{
