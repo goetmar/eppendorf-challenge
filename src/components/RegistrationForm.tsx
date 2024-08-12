@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { FormField, FormFieldState } from "../types";
+import { FormField, FormValue } from "../types";
 import { FormFieldInput } from "../atoms/FormFieldInput";
 import {
   hasAtSymbol,
@@ -19,6 +19,13 @@ import {
   hasUppercaseLetter,
   isValidEmail,
 } from "../utils/validation";
+import useForm from "../hooks/useForm";
+
+const defaultFormValue: FormValue = {
+  value: "",
+  error: false,
+  errorMessage: "",
+};
 
 const formFields: FormField[] = [
   {
@@ -26,6 +33,7 @@ const formFields: FormField[] = [
     label: "Name",
     required: true,
     type: "text",
+    defaultValue: defaultFormValue,
     validations: [
       {
         isValid: hasMinTwoChars,
@@ -38,6 +46,7 @@ const formFields: FormField[] = [
     label: "Email",
     required: true,
     type: "email",
+    defaultValue: defaultFormValue,
     validations: [
       {
         isValid: hasAtSymbol,
@@ -54,6 +63,7 @@ const formFields: FormField[] = [
     label: "Password",
     required: true,
     type: "password",
+    defaultValue: defaultFormValue,
     validations: [
       {
         isValid: hasMinEightChars,
@@ -75,78 +85,11 @@ const formFields: FormField[] = [
   },
 ];
 
-const defaultFormFieldState: FormFieldState = {
-  value: "",
-  error: false,
-  errorMessage: "",
-};
-
-function createDefaultFormState(
-  fields: string[]
-): Record<string, FormFieldState> {
-  let defaultFormState: Record<string, FormFieldState> = {};
-  fields.forEach((field) => {
-    defaultFormState[field] = defaultFormFieldState;
-  });
-  return defaultFormState;
-}
-const defaultFormState: Record<string, FormFieldState> = createDefaultFormState(
-  formFields.map((field) => field.id)
-);
-
 export const RegistrationForm = () => {
-  const [formValues, setFormValues] = useState(defaultFormState);
+  const { formValues, handleChange, resetFormValues, validateFields } =
+    useForm(formFields);
+
   const [openAlert, setOpenAlert] = useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = event.target;
-    setFormValues({
-      ...formValues,
-      [id]: {
-        ...formValues[id],
-        value,
-      },
-    });
-  };
-
-  const resetFormValues = () => {
-    setFormValues(defaultFormState);
-  };
-
-  const validateFields = (): boolean => {
-    let newFormValues = { ...formValues };
-    let isValid = true;
-
-    for (let field of formFields) {
-      const currentValue = formValues[field.id].value;
-      let { error, errorMessage } = defaultFormFieldState;
-
-      if (field.required && !currentValue) {
-        errorMessage = `${field.label} must not be empty`;
-      } else {
-        for (const validation of field.validations) {
-          if (!validation.isValid(currentValue)) {
-            errorMessage = validation.errorMessage;
-            break;
-          }
-        }
-      }
-      if (errorMessage !== defaultFormFieldState.errorMessage) {
-        error = true;
-        isValid = false;
-      }
-      newFormValues = {
-        ...newFormValues,
-        [field.id]: {
-          ...newFormValues[field.id],
-          error: error,
-          errorMessage: errorMessage,
-        },
-      };
-    }
-    setFormValues(newFormValues);
-    return isValid;
-  };
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();

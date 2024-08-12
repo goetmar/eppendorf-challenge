@@ -62,21 +62,22 @@ export type Validation = {
   errorMessage: string;
 };
 
-export type FormField = {
-  id: string;
-  label: string;
-  required: boolean;
-  type: string;
-  validations: Validation[];
-};
-
-export type FormFieldState = {
+export type FormValue = {
   value: string;
   error: boolean;
   errorMessage: string;
 };
 
-export type FormFieldInputProps = {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-} & FormField &
-  FormFieldState;
+export type FormField = {
+  id: string;
+  label: string;
+  required: boolean;
+  type: string;
+  defaultValue: FormValue;
+  validations: Validation[];
+};
+
+export type FormFieldInputProps = Omit<FormField, "defaultValue"> &
+  FormValue & {
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  };
