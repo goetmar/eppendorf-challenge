@@ -1,10 +1,10 @@
 import { Stack } from "@mui/material";
-import { SortedTable } from "../components/SortedTable";
+import { RegistrationForm } from "../components/RegistrationForm";
 
-export const HomePage = () => {
+export const RegistrationPage = () => {
   return (
     <Stack spacing={4} alignItems="center" sx={{ px: 16, py: 8 }}>
-      <SortedTable />
+      <RegistrationForm />
     </Stack>
   );
 };

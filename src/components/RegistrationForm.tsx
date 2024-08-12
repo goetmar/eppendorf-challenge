@@ -168,7 +168,7 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <Paper sx={{ maxWidth: "600px" }}>
+    <Paper sx={{ width: "100%", maxWidth: 600 }}>
       <form noValidate onSubmit={handleSubmit}>
         <Grid
           container
