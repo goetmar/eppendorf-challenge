@@ -1,4 +1,4 @@
-import { test as base, expect, Page } from "@playwright/test";
+import { test as base, expect } from "@playwright/test";
 import { RegisterPage } from "../page-object-models/register-page";
 
 const test = base.extend<{ registerPage: RegisterPage }>({
