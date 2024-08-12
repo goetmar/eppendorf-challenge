@@ -81,7 +81,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
         </Grid>
       </form>
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={openAlert}
         autoHideDuration={6000}
         onClose={handleCloseAlert}
@@ -92,7 +92,7 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
           variant="filled"
           sx={{ width: "100%" }}
         >
-          Your submit was successful
+          Your submit was successful!
         </Alert>
       </Snackbar>
     </Paper>
