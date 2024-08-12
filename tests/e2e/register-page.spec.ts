@@ -74,3 +74,32 @@ composeErrorMessageTest({
   password: "ABCdefghi!",
   expectedErrorMessage: "Password must have at least one number",
 });
+
+test("reset values on reset button click", async ({ registerPage }) => {
+  await registerPage.fillForm("Valid Name", "invalid@email", "invalidPassword");
+  await registerPage.reset();
+  const errorMessages = await registerPage.getErrorMessages();
+  expect(errorMessages).toEqual(["", "", ""]);
+  expect(await registerPage.nameInput.innerText()).toEqual("");
+  expect(await registerPage.emailInput.innerText()).toEqual("");
+  expect(await registerPage.passwordInput.innerText()).toEqual("");
+});
+
+test("reset values and show alert on valid submit", async ({
+  registerPage,
+}) => {
+  await registerPage.fillForm(
+    "Valid Name",
+    "valid.email@site.com",
+    "ABCdef123!"
+  );
+  await registerPage.submit();
+  const errorMessages = await registerPage.getErrorMessages();
+  expect(errorMessages).toEqual(["", "", ""]);
+  expect(await registerPage.nameInput.innerText()).toEqual("");
+  expect(await registerPage.emailInput.innerText()).toEqual("");
+  expect(await registerPage.passwordInput.innerText()).toEqual("");
+  expect(await registerPage.page.getByRole("alert").innerText()).toContain(
+    "Your submit was successful!"
+  );
+});
