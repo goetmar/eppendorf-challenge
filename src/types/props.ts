@@ -17,6 +17,8 @@ export type SortedTableHeadProps = {
 
 export type SortedTableToolbarProps = { children?: ReactNode };
 
+export type PlaceholderRowProps = { rows: number; children?: ReactNode };
+
 // Registration Form Props
 export type RegistrationFormProps = { formFields: FormField[] };
 

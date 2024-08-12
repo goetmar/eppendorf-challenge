@@ -7,6 +7,7 @@ import {
   TablePagination,
   TableRow,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { Device, DeviceHealthEnum, Order, StatusColor } from "../types/types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
@@ -15,6 +16,8 @@ import { SortedTableHead } from "../atoms/SortedTableHead";
 import { getComparator } from "../utils/comparator";
 import { ColorChip } from "../atoms/ColorChip";
 import { SortedTableProps } from "../types/props";
+import { FolderOff } from "@mui/icons-material";
+import { PlaceholderRow } from "../atoms/PlaceholderRow";
 
 export const SortedTable = (props: SortedTableProps) => {
   const [order, setOrder] = useState<Order>("asc");
@@ -69,50 +72,49 @@ export const SortedTable = (props: SortedTableProps) => {
             headCells={props.headCells}
           />
           <TableBody>
-            {visibleRows.map((row) => {
-              return (
-                <TableRow hover tabIndex={-1} key={row.id}>
-                  <Tooltip title={row.location} enterDelay={500} arrow>
-                    <TableCell
-                      style={{
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {row.location}
+            {visibleRows.length > 0 ? (
+              <>
+                {visibleRows.map((row) => (
+                  <TableRow hover tabIndex={-1} key={row.id}>
+                    <Tooltip title={row.location} enterDelay={500} arrow>
+                      <TableCell
+                        style={{
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {row.location}
+                      </TableCell>
+                    </Tooltip>
+                    <TableCell>{row.type}</TableCell>
+                    <TableCell>
+                      <ColorChip
+                        color={StatusColor[row.deviceHealth]}
+                        label={DeviceHealthEnum[row.deviceHealth]}
+                      />
                     </TableCell>
-                  </Tooltip>
-                  <TableCell>{row.type}</TableCell>
-                  <TableCell>
-                    <ColorChip
-                      color={StatusColor[row.deviceHealth]}
-                      label={DeviceHealthEnum[row.deviceHealth]}
-                    />
-                  </TableCell>
-                  <TableCell align="right">
-                    {row.lastUsed.toLocaleDateString()}
-                  </TableCell>
-                  <TableCell align="right">
-                    {new Intl.NumberFormat("de-DE", {
-                      style: "currency",
-                      currency: "EUR",
-                    }).format(row.price)}
-                  </TableCell>
-                  <TableCell>
-                    <ColorChip color={row.color} label={row.color} />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-            {emptyRows > 0 && (
-              <TableRow
-                style={{
-                  height: 45 * emptyRows,
-                }}
-              >
-                <TableCell colSpan={6} />
-              </TableRow>
+                    <TableCell align="right">
+                      {row.lastUsed.toLocaleDateString()}
+                    </TableCell>
+                    <TableCell align="right">
+                      {new Intl.NumberFormat("de-DE", {
+                        style: "currency",
+                        currency: "EUR",
+                      }).format(row.price)}
+                    </TableCell>
+                    <TableCell>
+                      <ColorChip color={row.color} label={row.color} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {emptyRows > 0 && <PlaceholderRow rows={emptyRows} />}
+              </>
+            ) : (
+              <PlaceholderRow rows={rowsPerPage}>
+                <FolderOff />
+                <Typography>No Data</Typography>
+              </PlaceholderRow>
             )}
           </TableBody>
         </Table>
@@ -125,6 +127,8 @@ export const SortedTable = (props: SortedTableProps) => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        showFirstButton
+        showLastButton
       />
     </Paper>
   );
