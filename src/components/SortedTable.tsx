@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Device, DeviceHealthEnum, Order, StatusColor } from "../types/types";
+import { Device, DeviceHealth, Order } from "../types/types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { SortedTableToolbar } from "../atoms/SortedTableToolbar";
 import { SortedTableHead } from "../atoms/SortedTableHead";
@@ -18,6 +18,7 @@ import { ColorChip } from "../atoms/ColorChip";
 import { SortedTableProps } from "../types/props";
 import { FolderOff } from "@mui/icons-material";
 import { PlaceholderRow } from "../atoms/PlaceholderRow";
+import { statusColors } from "../constants/deviceData";
 
 export const SortedTable = (props: SortedTableProps) => {
   const [order, setOrder] = useState<Order>("asc");
@@ -90,8 +91,8 @@ export const SortedTable = (props: SortedTableProps) => {
                     <TableCell>{row.type}</TableCell>
                     <TableCell>
                       <ColorChip
-                        color={StatusColor[row.deviceHealth]}
-                        label={DeviceHealthEnum[row.deviceHealth]}
+                        color={statusColors[row.deviceHealth]}
+                        label={DeviceHealth[row.deviceHealth]}
                       />
                     </TableCell>
                     <TableCell align="right">

@@ -1,14 +1,4 @@
 // Device Data Types
-export type Device = {
-  id: number;
-  location: string;
-  type: DeviceType;
-  deviceHealth: DeviceHealthEnum;
-  lastUsed: Date;
-  price: number;
-  color: ColorValueHex;
-};
-
 export type DeviceType =
   | "freezer"
   | "cycler"
@@ -16,7 +6,7 @@ export type DeviceType =
   | "pipette"
   | "centrifuge";
 
-export enum DeviceHealthEnum {
+export enum DeviceHealth {
   "broken",
   "bad",
   "mediocre",
@@ -24,17 +14,23 @@ export enum DeviceHealthEnum {
   "good",
 }
 
-export type DeviceHealth = keyof typeof DeviceHealthEnum;
+export type DeviceHealthKey = keyof typeof DeviceHealth;
+
+export type DeviceHealthValue = (typeof DeviceHealth)[DeviceHealthKey];
 
 export type ColorValueHex = `#${string}`;
 
-export enum StatusColor {
-  "#f44336",
-  "#ffa726",
-  "#FAD800",
-  "#81c784",
-  "#388e3c",
-}
+export type StatusColors = Record<DeviceHealthValue, ColorValueHex>;
+
+export type Device = {
+  id: number;
+  location: string;
+  type: DeviceType;
+  deviceHealth: DeviceHealthValue;
+  lastUsed: Date;
+  price: number;
+  color: ColorValueHex;
+};
 
 // Sorted Table Types
 export type Order = "asc" | "desc";

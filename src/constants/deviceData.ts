@@ -1,10 +1,11 @@
 import {
   ColorValueHex,
   Device,
+  DeviceHealthKey,
   DeviceHealth,
-  DeviceHealthEnum,
   DeviceType,
   HeadCell,
+  StatusColors,
 } from "../types/types";
 import deviceDataJson from "../data/data.json";
 
@@ -15,7 +16,7 @@ function createDevice(data: DeviceData): Device {
     id: data.id,
     location: data.location,
     type: data.type as DeviceType,
-    deviceHealth: DeviceHealthEnum[data.device_health as DeviceHealth],
+    deviceHealth: DeviceHealth[data.device_health as DeviceHealthKey],
     lastUsed: new Date(data.last_used),
     price: Number(data.price),
     color: data.color.toUpperCase() as ColorValueHex,
@@ -64,3 +65,11 @@ export const headCells: HeadCell[] = [
     percentageWidth: 15,
   },
 ];
+
+export const statusColors: StatusColors = {
+  0: "#F44336",
+  1: "#FFA726",
+  2: "#FAD800",
+  3: "#81C784",
+  4: "#388E3C",
+};

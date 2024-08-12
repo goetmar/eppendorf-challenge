@@ -1,5 +1,12 @@
 import { MouseEvent, ReactNode } from "react";
-import { Device, HeadCell, Order, FormField, FormValue } from "./types";
+import {
+  Device,
+  HeadCell,
+  Order,
+  FormField,
+  FormValue,
+  ColorValueHex,
+} from "./types";
 
 // Sorted Table Props
 export type SortedTableProps = {
@@ -27,4 +34,4 @@ export type FormFieldInputProps = Omit<FormField, "defaultValue"> &
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   };
 
-export type ColorChipProps = { color: string; label: string };
+export type ColorChipProps = { color: ColorValueHex; label: string };
