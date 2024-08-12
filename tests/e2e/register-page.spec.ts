@@ -80,9 +80,9 @@ test("reset values on reset button click", async ({ registerPage }) => {
   await registerPage.reset();
   const errorMessages = await registerPage.getErrorMessages();
   expect(errorMessages).toEqual(["", "", ""]);
-  expect(await registerPage.nameInput.innerText()).toEqual("");
-  expect(await registerPage.emailInput.innerText()).toEqual("");
-  expect(await registerPage.passwordInput.innerText()).toEqual("");
+  await expect(registerPage.nameInput).toBeEmpty();
+  await expect(registerPage.emailInput).toBeEmpty();
+  await expect(registerPage.passwordInput).toBeEmpty();
 });
 
 test("reset values and show alert on valid submit", async ({
@@ -96,10 +96,10 @@ test("reset values and show alert on valid submit", async ({
   await registerPage.submit();
   const errorMessages = await registerPage.getErrorMessages();
   expect(errorMessages).toEqual(["", "", ""]);
-  expect(await registerPage.nameInput.innerText()).toEqual("");
-  expect(await registerPage.emailInput.innerText()).toEqual("");
-  expect(await registerPage.passwordInput.innerText()).toEqual("");
-  expect(await registerPage.page.getByRole("alert").innerText()).toContain(
+  await expect(registerPage.nameInput).toBeEmpty();
+  await expect(registerPage.emailInput).toBeEmpty();
+  await expect(registerPage.passwordInput).toBeEmpty();
+  await expect(registerPage.page.getByRole("alert")).toHaveText(
     "Your submit was successful!"
   );
 });
