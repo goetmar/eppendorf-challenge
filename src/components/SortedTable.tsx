@@ -9,82 +9,22 @@ import {
   Tooltip,
 } from "@mui/material";
 import {
-  ColorValueHex,
   Device,
-  DeviceHealth,
   DeviceHealthEnum,
-  DeviceType,
   HeadCell,
   Order,
   StatusColor,
 } from "../types";
-import deviceDataJson from "../data/data.json";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { SortedTableToolbar } from "../atoms/SortedTableToolbar";
 import { SortedTableHead } from "../atoms/SortedTableHead";
 import { getComparator } from "../utils/comparator";
 import { ColorChip } from "../atoms/ColorChip";
 
-type DeviceData = (typeof deviceDataJson)[0];
-
-function createDevice(data: DeviceData): Device {
-  return {
-    id: data.id,
-    location: data.location,
-    type: data.type as DeviceType,
-    deviceHealth: DeviceHealthEnum[data.device_health as DeviceHealth],
-    lastUsed: new Date(data.last_used),
-    price: Number(data.price),
-    color: data.color.toUpperCase() as ColorValueHex,
-  };
-}
-
-const deviceData: Device[] = deviceDataJson.map((deviceData) =>
-  createDevice(deviceData)
-);
-
-const rows = deviceData;
-
-const headCells: HeadCell[] = [
-  {
-    id: "location",
-    numeric: false,
-    label: "Location",
-    percentageWidth: 25,
-  },
-  {
-    id: "type",
-    numeric: false,
-    label: "Type",
-    percentageWidth: 15,
-  },
-  {
-    id: "deviceHealth",
-    numeric: false,
-    label: "Health",
-    percentageWidth: 15,
-  },
-  {
-    id: "lastUsed",
-    numeric: true,
-    label: "Last Used",
-    percentageWidth: 15,
-  },
-  {
-    id: "price",
-    numeric: true,
-    label: "Price",
-    percentageWidth: 15,
-  },
-  {
-    id: "color",
-    numeric: false,
-    label: "Color",
-    percentageWidth: 15,
-  },
-];
-
-export const SortedTable = () => {
+export const SortedTable = (props: {
+  rows: Device[];
+  headCells: HeadCell[];
+}) => {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Device>("price");
   const [page, setPage] = useState(0);
@@ -110,11 +50,11 @@ export const SortedTable = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.rows.length) : 0;
 
   const visibleRows = useMemo(
     () =>
-      rows
+      props.rows
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [order, orderBy, page, rowsPerPage]
@@ -133,8 +73,8 @@ export const SortedTable = () => {
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
-            rowCount={rows.length}
-            headCells={headCells}
+            rowCount={props.rows.length}
+            headCells={props.headCells}
           />
           <TableBody>
             {visibleRows.map((row) => {
@@ -188,7 +128,7 @@ export const SortedTable = () => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={rows.length}
+        count={props.rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
