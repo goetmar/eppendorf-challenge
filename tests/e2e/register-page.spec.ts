@@ -9,7 +9,7 @@ const test = base.extend<{ registerPage: RegisterPage }>({
   },
 });
 
-function composeErrorMessageTest(props: {
+function testErrorMessage(props: {
   title: string;
   name?: string;
   email?: string;
@@ -39,37 +39,37 @@ test("show error messages for empty inputs", async ({ registerPage }) => {
   ]);
 });
 
-composeErrorMessageTest({
+testErrorMessage({
   title: "show error message for short name",
   name: "a",
   expectedErrorMessage: "Name must have at least two characters",
 });
-composeErrorMessageTest({
+testErrorMessage({
   title: "show error message for email without @ symbol",
   email: "email",
   expectedErrorMessage: "Email must have an @ Symbol",
 });
-composeErrorMessageTest({
+testErrorMessage({
   title: "show error message for invalid email format",
   email: "invalid@email",
   expectedErrorMessage: "Email must be valid",
 });
-composeErrorMessageTest({
+testErrorMessage({
   title: "show error message for short password",
   password: "1234567",
   expectedErrorMessage: "Password must have at least eight characters",
 });
-composeErrorMessageTest({
+testErrorMessage({
   title: "show error message for password without uppercase letter",
   password: "abcdefghi",
   expectedErrorMessage: "Password must have at least one uppercase letter",
 });
-composeErrorMessageTest({
+testErrorMessage({
   title: "show error message for password without special character",
   password: "ABCdefghi",
   expectedErrorMessage: "Password must have at least one special character",
 });
-composeErrorMessageTest({
+testErrorMessage({
   title: "show error message for password without number",
   password: "ABCdefghi!",
   expectedErrorMessage: "Password must have at least one number",
