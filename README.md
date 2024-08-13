@@ -1,10 +1,25 @@
 # Eppendorf Frontend Engineer Challenge
 
-We at Eppendorf follow a cloud native and FaaS approach on AWS to build the next generation of our SaaS platform for laboratory automation.
+This project implements the challenge by using the following technologies:
+
+- **Typescript**
+- **React**
+- **Vite**
+- **Material UI**
+- **React Router**
+- **Playwright**
+
+## Project Setup
+
+`npm install` to install the project
+
+`npm run dev` to start the dev server at [http://localhost:5173/](http://localhost:5173/)
+
+`npm run test-e2e` to run e2e tests while the server is running
 
 ## Challenge
 
-Your challenge is to complete two independent tasks:
+The challenge consists of two independent tasks:
 
 - Use the data in the provided data.json file to visualize a sortable table/list of entries
 - Create a simple registration form with the following requirements
@@ -20,13 +35,3 @@ Your challenge is to complete two independent tasks:
     - at least one uppercase letter
     - at least one special character
     - at least one number
-
-## Additional Notes
-
-- Use React + TypeScript.
-- It's up to you what technologies/libraries/frameworks you use. You should be able to justify your decision though.
-- Quality is key! Think of how to ensure the quality of your solution and how to measure it.
-- We do not expect a production ready solution here. Focus on providing a clean and reasonable codebase.
-- We love Git. So feel free to send us the link to your Git repository on GitHub.
-
-We value your personal life and you probably have a full-time job. Please timebox yourself and don't put too much time and effort into the completion of the challenge (max 6-8h).
