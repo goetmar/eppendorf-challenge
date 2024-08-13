@@ -9,55 +9,29 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Device, DeviceHealth, HeadCell, Order } from "../types/types";
+import { Device, DeviceHealth, Order, StatusColors } from "../types/types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { DeviceTableToolbar } from "../atoms/DeviceTableToolbar";
 import { DeviceTableHead } from "../atoms/DeviceTableHead";
 import { getComparator } from "../utils/comparator";
 import { ColorChip } from "../atoms/ColorChip";
-import { DeviceTableProps } from "../types/props";
 import { FolderOff } from "@mui/icons-material";
 import { PlaceholderRow } from "../atoms/PlaceholderRow";
-import { statusColors } from "../constants/deviceData";
 
-const headCells: HeadCell[] = [
-  {
-    id: "location",
-    numeric: false,
-    label: "Location",
-    percentageWidth: 25,
-  },
-  {
-    id: "type",
-    numeric: false,
-    label: "Type",
-    percentageWidth: 15,
-  },
-  {
-    id: "deviceHealth",
-    numeric: false,
-    label: "Health",
-    percentageWidth: 15,
-  },
-  {
-    id: "lastUsed",
-    numeric: true,
-    label: "Last Used",
-    percentageWidth: 15,
-  },
-  {
-    id: "price",
-    numeric: true,
-    label: "Price",
-    percentageWidth: 15,
-  },
-  {
-    id: "color",
-    numeric: false,
-    label: "Color",
-    percentageWidth: 15,
-  },
-];
+/**
+ * The status color hex values for the device health
+ */
+const statusColor: StatusColors = {
+  0: "#F44336",
+  1: "#FFA726",
+  2: "#FAD800",
+  3: "#81C784",
+  4: "#388E3C",
+};
+
+export type DeviceTableProps = {
+  rows: Device[];
+};
 
 export const DeviceTable = (props: DeviceTableProps) => {
   const [order, setOrder] = useState<Order>("asc");
@@ -109,7 +83,6 @@ export const DeviceTable = (props: DeviceTableProps) => {
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
             rowCount={props.rows.length}
-            headCells={headCells}
           />
           <TableBody>
             {visibleRows.length > 0 ? (
@@ -130,7 +103,7 @@ export const DeviceTable = (props: DeviceTableProps) => {
                     <TableCell>{row.type}</TableCell>
                     <TableCell>
                       <ColorChip
-                        color={statusColors[row.deviceHealth]}
+                        color={statusColor[row.deviceHealth]}
                         label={DeviceHealth[row.deviceHealth]}
                       />
                     </TableCell>

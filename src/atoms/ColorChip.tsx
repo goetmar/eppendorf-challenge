@@ -1,5 +1,7 @@
 import { Chip, getContrastRatio } from "@mui/material";
-import { ColorChipProps } from "../types/props";
+import { ColorValueHex } from "../types/types";
+
+export type ColorChipProps = { color: ColorValueHex; label: string };
 
 export const ColorChip = (props: ColorChipProps) => {
   return (

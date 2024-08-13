@@ -1,5 +1,7 @@
 import { Toolbar, Typography } from "@mui/material";
-import { DeviceTableToolbarProps } from "../types/props";
+import { ReactNode } from "react";
+
+export type DeviceTableToolbarProps = { children?: ReactNode };
 
 export const DeviceTableToolbar = (props: DeviceTableToolbarProps) => {
   return (

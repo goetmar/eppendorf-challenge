@@ -1,5 +1,7 @@
 import { TableRow, TableCell } from "@mui/material";
-import { PlaceholderRowProps } from "../types/props";
+import { ReactNode } from "react";
+
+export type PlaceholderRowProps = { rows: number; children?: ReactNode };
 
 export const PlaceholderRow = (props: PlaceholderRowProps) => {
   return (

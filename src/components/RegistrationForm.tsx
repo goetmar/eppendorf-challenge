@@ -10,7 +10,9 @@ import {
 import { useState } from "react";
 import { FormFieldInput } from "../atoms/FormFieldInput";
 import useForm from "../hooks/useForm";
-import { RegistrationFormProps } from "../types/props";
+import { FormField } from "../types/types";
+
+export type RegistrationFormProps = { formFields: FormField[] };
 
 export const RegistrationForm = (props: RegistrationFormProps) => {
   const { formValues, handleChange, resetFormValues, validateFields } = useForm(

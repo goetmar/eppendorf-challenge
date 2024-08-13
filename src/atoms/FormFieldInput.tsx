@@ -9,7 +9,12 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { FormFieldInputProps } from "../types/props";
+import { FormField, FormValue } from "../types/types";
+
+export type FormFieldInputProps = Omit<FormField, "defaultValue"> &
+  FormValue & {
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  };
 
 export const FormFieldInput = (props: FormFieldInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
