@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Device, DeviceHealth, Order } from "../types/types";
+import { Device, DeviceHealth, HeadCell, Order } from "../types/types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { SortedTableToolbar } from "../atoms/SortedTableToolbar";
 import { SortedTableHead } from "../atoms/SortedTableHead";
@@ -19,6 +19,45 @@ import { SortedTableProps } from "../types/props";
 import { FolderOff } from "@mui/icons-material";
 import { PlaceholderRow } from "../atoms/PlaceholderRow";
 import { statusColors } from "../constants/deviceData";
+
+const headCells: HeadCell[] = [
+  {
+    id: "location",
+    numeric: false,
+    label: "Location",
+    percentageWidth: 25,
+  },
+  {
+    id: "type",
+    numeric: false,
+    label: "Type",
+    percentageWidth: 15,
+  },
+  {
+    id: "deviceHealth",
+    numeric: false,
+    label: "Health",
+    percentageWidth: 15,
+  },
+  {
+    id: "lastUsed",
+    numeric: true,
+    label: "Last Used",
+    percentageWidth: 15,
+  },
+  {
+    id: "price",
+    numeric: true,
+    label: "Price",
+    percentageWidth: 15,
+  },
+  {
+    id: "color",
+    numeric: false,
+    label: "Color",
+    percentageWidth: 15,
+  },
+];
 
 export const SortedTable = (props: SortedTableProps) => {
   const [order, setOrder] = useState<Order>("asc");
@@ -70,7 +109,7 @@ export const SortedTable = (props: SortedTableProps) => {
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
             rowCount={props.rows.length}
-            headCells={props.headCells}
+            headCells={headCells}
           />
           <TableBody>
             {visibleRows.length > 0 ? (

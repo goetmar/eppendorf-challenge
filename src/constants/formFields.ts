@@ -12,7 +12,7 @@ import {
 const defaultFormValue: FormValue = {
   value: "",
   error: false,
-  errorMessage: "",
+  errorMessage: "", // can be replaced with " " to have a placeholder for the error message
 };
 
 export const formFields: FormField[] = [

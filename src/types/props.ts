@@ -11,7 +11,6 @@ import {
 // Sorted Table Props
 export type SortedTableProps = {
   rows: Device[];
-  headCells: HeadCell[];
 };
 
 export type SortedTableHeadProps = {
