@@ -70,6 +70,7 @@ export const DeviceTableHead = (props: DeviceTableHeadProps) => {
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
+              sx={{ fontWeight: "bold" }}
             >
               {headCell.label}
             </TableSortLabel>
