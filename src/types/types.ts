@@ -32,7 +32,7 @@ export type Device = {
   color: ColorValueHex;
 };
 
-// Sorted Table Types
+// Device Table Types
 export type Order = "asc" | "desc";
 
 export type HeadCell = {

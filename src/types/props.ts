@@ -8,12 +8,12 @@ import {
   ColorValueHex,
 } from "./types";
 
-// Sorted Table Props
-export type SortedTableProps = {
+// Device Table Props
+export type DeviceTableProps = {
   rows: Device[];
 };
 
-export type SortedTableHeadProps = {
+export type DeviceTableHeadProps = {
   onRequestSort: (event: MouseEvent<unknown>, property: keyof Device) => void;
   order: Order;
   orderBy: string;
@@ -21,7 +21,7 @@ export type SortedTableHeadProps = {
   headCells: HeadCell[];
 };
 
-export type SortedTableToolbarProps = { children?: ReactNode };
+export type DeviceTableToolbarProps = { children?: ReactNode };
 
 export type PlaceholderRowProps = { rows: number; children?: ReactNode };
 

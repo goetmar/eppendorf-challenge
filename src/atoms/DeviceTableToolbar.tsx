@@ -1,7 +1,7 @@
 import { Toolbar, Typography } from "@mui/material";
-import { SortedTableToolbarProps } from "../types/props";
+import { DeviceTableToolbarProps } from "../types/props";
 
-export const SortedTableToolbar = (props: SortedTableToolbarProps) => {
+export const DeviceTableToolbar = (props: DeviceTableToolbarProps) => {
   return (
     <Toolbar
       sx={{
@@ -12,7 +12,7 @@ export const SortedTableToolbar = (props: SortedTableToolbarProps) => {
       <Typography
         sx={{ flex: "1 1 100%" }}
         variant="h6"
-        id="sortedTableTitle"
+        id="deviceTableTitle"
         component="div"
         color="primary"
       >

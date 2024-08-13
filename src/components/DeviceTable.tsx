@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import { Device, DeviceHealth, HeadCell, Order } from "../types/types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
-import { SortedTableToolbar } from "../atoms/SortedTableToolbar";
-import { SortedTableHead } from "../atoms/SortedTableHead";
+import { DeviceTableToolbar } from "../atoms/DeviceTableToolbar";
+import { DeviceTableHead } from "../atoms/DeviceTableHead";
 import { getComparator } from "../utils/comparator";
 import { ColorChip } from "../atoms/ColorChip";
-import { SortedTableProps } from "../types/props";
+import { DeviceTableProps } from "../types/props";
 import { FolderOff } from "@mui/icons-material";
 import { PlaceholderRow } from "../atoms/PlaceholderRow";
 import { statusColors } from "../constants/deviceData";
@@ -59,7 +59,7 @@ const headCells: HeadCell[] = [
   },
 ];
 
-export const SortedTable = (props: SortedTableProps) => {
+export const DeviceTable = (props: DeviceTableProps) => {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Device>("price");
   const [page, setPage] = useState(0);
@@ -97,14 +97,14 @@ export const SortedTable = (props: SortedTableProps) => {
 
   return (
     <Paper sx={{ width: "100%", maxWidth: 1000 }}>
-      <SortedTableToolbar />
+      <DeviceTableToolbar />
       <TableContainer>
         <Table
           sx={{ minWidth: 850, tableLayout: "fixed" }}
-          aria-labelledby="sortedTableTitle"
+          aria-labelledby="deviceTableTitle"
           size="small"
         >
-          <SortedTableHead
+          <DeviceTableHead
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
