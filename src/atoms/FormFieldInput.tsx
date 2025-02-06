@@ -17,65 +17,64 @@ export type FormFieldInputProps = Omit<FormField, "defaultValue"> &
   };
 
 export const FormFieldInput = (props: FormFieldInputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  return (
-    <>
-      {props.type !== "password" ? (
-        <TextField
-          required={props.required}
+  if (props.type !== "password") {
+    return (
+      <TextField
+        required={props.required}
+        id={props.id}
+        label={props.label}
+        variant="outlined"
+        type={props.type}
+        sx={{ width: "100%" }}
+        value={props.value}
+        onChange={props.handleChange}
+        error={props.error}
+        helperText={props.errorMessage}
+      />
+    );
+  } else {
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (
+      event: React.MouseEvent<HTMLButtonElement>
+    ) => {
+      event.preventDefault();
+    };
+    return (
+      <FormControl
+        required={props.required}
+        error={props.error}
+        sx={{ width: "100%" }}
+        variant="outlined"
+      >
+        <InputLabel htmlFor={props.id}>{props.label}</InputLabel>
+        <OutlinedInput
           id={props.id}
-          label={props.label}
-          variant="outlined"
-          type={props.type}
-          sx={{ width: "100%" }}
+          type={showPassword ? "text" : "password"}
           value={props.value}
           onChange={props.handleChange}
-          error={props.error}
-          helperText={props.errorMessage}
+          endAdornment={
+            props.value !== "" && (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }
+          label="Password"
         />
-      ) : (
-        <FormControl
-          required={props.required}
-          error={props.error}
-          sx={{ width: "100%" }}
-          variant="outlined"
-        >
-          <InputLabel htmlFor={props.id}>{props.label}</InputLabel>
-          <OutlinedInput
-            id={props.id}
-            type={showPassword ? "text" : "password"}
-            value={props.value}
-            onChange={props.handleChange}
-            endAdornment={
-              props.value !== "" && (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }
-            label="Password"
-          />
-          {props.errorMessage && (
-            <FormHelperText id={`${props.id}-helper-text`}>
-              {props.errorMessage}
-            </FormHelperText>
-          )}
-        </FormControl>
-      )}
-    </>
-  );
+        {props.errorMessage && (
+          <FormHelperText id={`${props.id}-helper-text`}>
+            {props.errorMessage}
+          </FormHelperText>
+        )}
+      </FormControl>
+    );
+  }
 };
