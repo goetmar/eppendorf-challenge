@@ -1,6 +1,6 @@
 # Eppendorf Frontend Engineer Challenge
 
-This project implements the challenge by using the following technologies:
+This project implements a coding challenge that I received as part of an application process. I used the following technologies:
 
 - **Typescript**
 - **React**
@@ -17,7 +17,7 @@ This project implements the challenge by using the following technologies:
 
 `npm run test-e2e` to run e2e tests while the server is running
 
-## Challenge
+## The Challenge
 
 The challenge consists of two independent tasks:
 
