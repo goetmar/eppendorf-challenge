@@ -15,6 +15,8 @@ This project implements a coding challenge that I received as part of an applica
 
 `npm run dev` to start the dev server at [http://localhost:5173/](http://localhost:5173/)
 
+`npx playwright install` to install browsers for playwright
+
 `npm run test-e2e` to run e2e tests while the server is running
 
 ## The Challenge
